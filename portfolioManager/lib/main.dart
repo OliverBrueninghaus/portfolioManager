@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,6 +20,16 @@ class MyApp extends StatelessWidget {
   }
 }
 
+void getHttp() async {
+  try {
+    Response response =
+        await Dio().get("https://api.clashofclans.com/v1/players/%23YGYLR89PU");
+    print(response);
+  } catch (e) {
+    print(e);
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -35,6 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: Center());
+        body: new RaisedButton(onPressed: getHttp));
   }
 }
