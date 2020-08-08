@@ -21,13 +21,21 @@ class MyApp extends StatelessWidget {
 }
 
 void getHttp() async {
-  try {
-    Response response =
-        await Dio().get("https://api.clashofclans.com/v1/players/%23YGYLR89PU");
-    print(response);
-  } catch (e) {
-    print(e);
-  }
+  var dio = Dio();
+  dio.interceptors
+      .add(InterceptorsWrapper(onRequest: (RequestOptions options) async {
+    var customHeaders = {
+      'content-type': 'application/json',
+      'authorization':
+          'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRkYjY0ZmYxLWEyODYtNDEwNS04MzUxLTdjZjU3ODM5M2YzMyIsImlhdCI6MTU5NjkxMjI3Miwic3ViIjoiZGV2ZWxvcGVyLzc1MzhhYTQxLTY2ZjQtZDY4MC00YTc3LTViM2I1ODAyMTQxMCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjg3LjEyMy4xOTguMTEzIl0sInR5cGUiOiJjbGllbnQifV19.0J5l4bbdaQBFkL-Xwuspny5GYXWVSBZvrIld6GT8JELdsWk6938ruSGvCbXDIlBHc7DPEj91t6InNO0ZO1AXaw'
+    };
+    options.headers.addAll(customHeaders);
+    return options;
+  }));
+
+  Response response =
+      await dio.get("https://api.clashofclans.com/v1/players/%23YGYLR89PU");
+  print(response.data.toString());
 }
 
 class MyHomePage extends StatefulWidget {
