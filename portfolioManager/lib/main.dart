@@ -89,7 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Row(
+      body: Wrap(
+        direction: Axis.vertical,
         children: [
           FutureBuilder<PlayerData>(
             future: futurePlayerData,
