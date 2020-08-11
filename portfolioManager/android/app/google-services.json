@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "81587221926",
+    "firebase_url": "https://clash-of-clans-af2c2.firebaseio.com",
+    "project_id": "clash-of-clans-af2c2",
+    "storage_bucket": "clash-of-clans-af2c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81587221926:android:daa302dfb674bd1a2e4b67",
+        "android_client_info": {
+          "package_name": "com.oliver.clashOfClans"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81587221926-7djfm31gdpruk375n67d0e1tvf2cuvua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_I2_o9ZvARY_Uu38Sbme-3bvss3utB1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81587221926-7djfm31gdpruk375n67d0e1tvf2cuvua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
