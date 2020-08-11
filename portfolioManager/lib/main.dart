@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'responeData.dart';
+import 'responePlayerData.dart';
+import 'responseClanData.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -29,13 +30,32 @@ Future<PlayerData> fetchApiData() async {
       .get('https://api.clashofclans.com/v1/players/%23YGYLR89PU', headers: {
     HttpHeaders.contentTypeHeader: 'application/json',
     HttpHeaders.authorizationHeader:
-        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjU2YzUzY2JmLTBiMTctNGM1Ny1hMjI1LTkxOGVhNDZmNjQ1MiIsImlhdCI6MTU5NzA4MDk4OCwic3ViIjoiZGV2ZWxvcGVyLzc1MzhhYTQxLTY2ZjQtZDY4MC00YTc3LTViM2I1ODAyMTQxMCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjg4LjEzMC41NC4zOCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.MDw8_MIQHUI-L0Ei-UmnZ0EIhj0Tgdv6oRQd2qccj2Rb2Mfw_ZL3jqAXornUeojaYe6uBVJK5Tq25xWOBLvYGQ'
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmYTJiYWMyLWI3MDItNGRhMi1hNTRhLTExMTdlYjA1YTEzZSIsImlhdCI6MTU5NzEzMTQ1OSwic3ViIjoiZGV2ZWxvcGVyLzc1MzhhYTQxLTY2ZjQtZDY4MC00YTc3LTViM2I1ODAyMTQxMCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjgyLjIwNy4yMzYuNDAiXSwidHlwZSI6ImNsaWVudCJ9XX0.XuyZN4skGPxBuxoUDNWc9JWYNqHjK4wR8Lqq7o2jC6kHTpq0108eeaxlMaWpKXxR_o-Aab_s3q-Iuy0ieykVrQ'
   });
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     return PlayerData.fromJson(json.decode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load PlayerData');
+  }
+}
+
+Future<ClanInfoData> fetchApiData1() async {
+  final response = await http
+      .get('https://api.clashofclans.com/v1/clans/%23Y2QPRRUJ', headers: {
+    HttpHeaders.contentTypeHeader: 'application/json',
+    HttpHeaders.authorizationHeader:
+        'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjVmYTJiYWMyLWI3MDItNGRhMi1hNTRhLTExMTdlYjA1YTEzZSIsImlhdCI6MTU5NzEzMTQ1OSwic3ViIjoiZGV2ZWxvcGVyLzc1MzhhYTQxLTY2ZjQtZDY4MC00YTc3LTViM2I1ODAyMTQxMCIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjgyLjIwNy4yMzYuNDAiXSwidHlwZSI6ImNsaWVudCJ9XX0.XuyZN4skGPxBuxoUDNWc9JWYNqHjK4wR8Lqq7o2jC6kHTpq0108eeaxlMaWpKXxR_o-Aab_s3q-Iuy0ieykVrQ'
+  });
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return ClanInfoData.fromJson(json.decode(response.body));
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -54,11 +74,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<PlayerData> futurePlayerData;
+  Future<ClanInfoData> futureClanInfoData;
 
   @override
   void initState() {
     super.initState();
     futurePlayerData = fetchApiData();
+    futureClanInfoData = fetchApiData1();
   }
 
   @override
@@ -98,6 +120,42 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Text(snapshot.data.trophies.toString());
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              // By default, show a loading spinner.
+              return CircularProgressIndicator();
+            },
+          ),
+          FutureBuilder<ClanInfoData>(
+            future: futureClanInfoData,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data.name.toString());
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              // By default, show a loading spinner.
+              return CircularProgressIndicator();
+            },
+          ),
+          FutureBuilder<ClanInfoData>(
+            future: futureClanInfoData,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data.description.toString());
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+              // By default, show a loading spinner.
+              return CircularProgressIndicator();
+            },
+          ),
+          FutureBuilder<ClanInfoData>(
+            future: futureClanInfoData,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data.locationName.toString());
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}");
               }
