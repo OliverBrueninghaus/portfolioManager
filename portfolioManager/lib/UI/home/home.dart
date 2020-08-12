@@ -1,16 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolioManager/UI/home/trap_list.dart';
+import 'package:portfolioManager/models/trap.dart';
 import 'package:portfolioManager/services/auth.dart';
 import 'package:portfolioManager/services/database.dart';
 import 'package:provider/provider.dart';
-import 'traps_list.dart';
 
 class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot>.value(
+    return StreamProvider<List<Trap>>.value(
       value: DatabaseService().traps,
       child: Scaffold(
         backgroundColor: Colors.brown,
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
                 label: Text('Logout'))
           ],
         ),
-        body: TrapsList(),
+        body: TrapList(),
       ),
     );
   }
