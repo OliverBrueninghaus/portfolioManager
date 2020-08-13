@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:portfolioManager/models/trap.dart';
+import 'package:portfolioManager/models/user.dart';
 
 class DatabaseService {
   final String uid;
@@ -25,8 +26,22 @@ class DatabaseService {
     }).toList();
   }
 
+  //userdata from snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
+    return UserData(
+        uid: uid,
+        name: snapshot.data['name'],
+        bomb: snapshot.data['bomb'],
+        giantBomb: snapshot.data['giantBomb']);
+  }
+
   // get traps stream
   Stream<List<Trap>> get traps {
     return trapsCollection.snapshots().map(_trapListFromSnapshot);
+  }
+
+  // get unser doc stream
+  Stream<UserData> get userData {
+    return trapsCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
 }

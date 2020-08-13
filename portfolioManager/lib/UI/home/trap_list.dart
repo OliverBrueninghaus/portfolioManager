@@ -11,7 +11,7 @@ class TrapList extends StatefulWidget {
 class _TrapListState extends State<TrapList> {
   @override
   Widget build(BuildContext context) {
-    final traps = Provider.of<List<Trap>>(context);
+    final traps = Provider.of<List<Trap>>(context) ?? [];
 
     return ListView.builder(
       itemCount: traps.length,
