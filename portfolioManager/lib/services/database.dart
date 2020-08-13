@@ -20,9 +20,14 @@ class DatabaseService {
   List<Trap> _trapListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       return Trap(
-          name: doc.data['name'] ?? '',
-          bomb: doc.data['bomb'] ?? '',
-          giantBomb: doc.data['giantBomb'] ?? '');
+        bomb: doc.data['bomb'] ?? '',
+        springTrap: doc.data['springTrap'] ?? '',
+        giantBomb: doc.data['giantBomb'] ?? '',
+        airBomb: doc.data['airBomb'] ?? '',
+        seekingAirMine: doc.data['seekingAirMine'] ?? '',
+        skeletonTrap: doc.data['skeletonTrap'] ?? '',
+        tornadoTrap: doc.data['tornadoTrap'] ?? '',
+      );
     }).toList();
   }
 

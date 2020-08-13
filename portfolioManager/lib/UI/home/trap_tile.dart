@@ -16,7 +16,7 @@ class TrapTile extends StatelessWidget {
             radius: 25.0,
             backgroundColor: Colors.purple, //avatar picture
           ),
-          title: Text(trap.name),
+          title: Text(trap.airBomb),
           subtitle: Text(trap.bomb),
         ),
       ),
